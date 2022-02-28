@@ -15,7 +15,8 @@ export class OrdersService {
     return createdCat.save();
   }
 
-  async findAll(): Promise<Order[]> {
-    return this.orderModel.find().exec();
+  async findAll(): Promise<any> {
+    const result = await this.orderModel.find().exec();
+    return { data: result };
   }
 }
