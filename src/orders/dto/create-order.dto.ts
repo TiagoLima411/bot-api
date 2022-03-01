@@ -63,9 +63,3 @@ export class CreateOrderDto implements IOrder {
   @IsNumber()
   readonly trades_count: number;
 }
-
-export class Order extends CreateOrderDto {}
-
-export class Orders {
-  data: Order[];
-}
