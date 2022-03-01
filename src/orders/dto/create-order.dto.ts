@@ -1,6 +1,19 @@
-import { IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import {
+  IOrder,
+  SideEnum,
+  TypeEnum,
+  StateEnum,
+} from '../interfaces/order.interface';
 
-export class CreateOrderDto {
+export class CreateOrderDto implements IOrder {
   @IsOptional()
   @IsString()
   readonly sn: string;
@@ -14,16 +27,16 @@ export class CreateOrderDto {
   readonly market_symbol: string;
 
   @IsOptional()
-  @IsString()
-  readonly side: string;
+  @IsEnum(SideEnum)
+  readonly side: typeof SideEnum;
 
   @IsOptional()
-  @IsString()
-  readonly type: string;
+  @IsEnum(TypeEnum)
+  readonly type: typeof TypeEnum;
 
   @IsOptional()
-  @IsString()
-  readonly state: string;
+  @IsEnum(StateEnum)
+  readonly state: typeof StateEnum;
 
   @IsOptional()
   @IsString()
@@ -54,6 +67,12 @@ export class CreateOrderDto {
   readonly created_at: string;
 
   @IsOptional()
-  @IsString()
+  @IsNumber()
   readonly trades_count: number;
+}
+
+export class Order extends CreateOrderDto {}
+
+export class Orders {
+  data: Order[];
 }
