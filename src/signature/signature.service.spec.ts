@@ -1,9 +1,10 @@
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SignatureService } from './signature.service';
 
 describe('SignatureService', () => {
   let service: SignatureService;
+  const configService = new ConfigService();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,7 +26,7 @@ describe('SignatureService', () => {
   it('.create', () => {
     const req = {
       method: 'GET',
-      url: 'https://api.foxbit.com.br/rest/v3/me',
+      url: `${configService.get<string>('BASE_PATH')}/me`,
       query: null,
       boby: '',
     };
