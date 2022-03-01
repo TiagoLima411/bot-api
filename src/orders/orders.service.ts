@@ -12,7 +12,6 @@ export class OrdersService {
   ) {}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    console.log(createOrderDto);
     const createdCat = new this.orderModel(createOrderDto);
     return createdCat.save();
   }
