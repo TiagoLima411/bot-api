@@ -7,7 +7,6 @@ const configService = new ConfigService();
 export class SignatureService {
   create(req: any) {
     const secret = configService.get<string>('API_SECRET');
-    console.log(secret);
     const timestamp = Date.now();
 
     const prehash = `${timestamp}${req.method}${req.url}${req.query}${req.body}`;
