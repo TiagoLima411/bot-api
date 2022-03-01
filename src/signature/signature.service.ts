@@ -6,7 +6,7 @@ const configService = new ConfigService();
 @Injectable()
 export class SignatureService {
   async create(req: any) {
-    const secret = configService.get<string>('API_SECRET');
+    const secret = configService.get<string>('API_SECRET') || 'API_SECRET';
     const timestamp = Date.now();
     const query = req.query || '';
     const body = req.body || '';

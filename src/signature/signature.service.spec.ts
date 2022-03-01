@@ -24,9 +24,11 @@ describe('SignatureService', () => {
   });
 
   it('.create', async () => {
+    const basePath = configService.get<string>('BASE_PATH') || 'base_path';
+
     const req = {
       method: 'GET',
-      url: `${configService.get<string>('BASE_PATH')}/me`,
+      url: `${basePath}/me`,
       query: null,
       boby: null,
     };
