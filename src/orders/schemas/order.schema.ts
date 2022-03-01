@@ -1,6 +1,4 @@
-import { Prop } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { StateEnum, TypeEnum } from '../interfaces/order.interface';
 
 export const SideEnum = new mongoose.Schema({
   buy: String,
