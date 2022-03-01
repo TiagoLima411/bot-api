@@ -1,5 +1,7 @@
 import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
-import { CreateOrderDto, Order, Orders } from './dto/create-order.dto';
+import { CreateOrderDto } from './dto/create-order.dto';
+import { Order } from './dto/order.dto';
+import { Orders } from './dto/orders.dto';
 import { OrdersService } from './orders.service';
 
 @Controller('orders')
