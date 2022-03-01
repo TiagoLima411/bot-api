@@ -10,7 +10,8 @@ export class SignatureService {
     const timestamp = Date.now();
 
     const prehash = `${timestamp}${req.method}${req.url}${req.query}${req.body}`;
+    const result = await crypto.HmacSHA256(prehash, secret).toString();
 
-    return await crypto.HmacSHA256(prehash, secret).toString();
+    return result;
   }
 }

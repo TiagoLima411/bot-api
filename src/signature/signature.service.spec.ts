@@ -23,13 +23,15 @@ describe('SignatureService', () => {
     expect(service).toBeDefined();
   });
 
-  it('.create', () => {
+  it('.create', async () => {
     const req = {
       method: 'GET',
       url: `${configService.get<string>('BASE_PATH')}/me`,
       query: null,
-      boby: '',
+      boby: null,
     };
-    expect(service.create(req)).toMatch(/[a-z,0-9]/);
+
+    const result = await service.create(req);
+    expect(result).toMatch(/[a-z,0-9]/);
   });
 });
