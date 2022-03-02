@@ -6,7 +6,7 @@ import {
   responseCreateOrderMock,
 } from './mocks/orders.mock';
 
-describe('HttpClientService', () => {
+describe('OrdersService', () => {
   let service: OrdersService;
   let result;
 
