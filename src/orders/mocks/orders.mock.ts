@@ -1,20 +1,12 @@
 import { SideEnum, StateEnum, TypeEnum } from '../interfaces/order.interface';
 
 export const createOrderDtoMock = {
-  sn: 'PPFVVJN5GHHGXJ',
-  client_order_id: '123456',
-  market_symbol: 'tbcbrl',
   side: SideEnum,
   type: TypeEnum,
-  state: StateEnum,
-  price: '5.2',
-  price_avg: '0.1',
+  market_symbol: 'tbcbrl',
+  client_order_id: '123456',
   quantity: '100.0',
-  quantity_executed: '100.0',
-  instant_amount: null,
-  instant_amount_executed: null,
-  created_at: '2022-02-08T18:06:10.026Z',
-  trades_count: 1,
+  remark: 'teste',
 };
 
 export const responseCreateOrderMock = {
