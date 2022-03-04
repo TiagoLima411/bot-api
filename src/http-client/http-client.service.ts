@@ -13,4 +13,8 @@ export class HttpClientService {
       throw err;
     }
   }
+
+  async post(url, body, headers) {
+    return this.client.post(url, body, headers).toPromise();
+  }
 }

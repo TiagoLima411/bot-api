@@ -9,14 +9,14 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  async createPlayer(
+  async create(
     @Body(new ValidationPipe()) createOrderDto: CreateOrderDto,
   ): Promise<Order> {
     return await this.ordersService.create(createOrderDto);
   }
 
   @Get()
-  async getPlayers(): Promise<Orders> {
+  async findAll(): Promise<Orders> {
     return this.ordersService.findAll();
   }
 }
