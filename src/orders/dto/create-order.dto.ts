@@ -1,12 +1,34 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import {
-  IOrder,
+  ICreatedOrderDto,
+  ICreateOrderDto,
   SideEnum,
   TypeEnum,
   StateEnum,
 } from '../interfaces/order.interface';
 
-export class CreateOrderDto implements IOrder {
+export class CreateOrderDto implements ICreateOrderDto {
+  @IsEnum(SideEnum)
+  readonly side: typeof SideEnum;
+
+  @IsEnum(TypeEnum)
+  readonly type: typeof TypeEnum;
+
+  @IsString()
+  readonly market_symbol: string;
+
+  @IsString()
+  readonly client_order_id: string;
+
+  @IsOptional()
+  @IsString()
+  readonly remark: string;
+
+  @IsString()
+  readonly quantity: string;
+}
+
+export class CreatedOrderDto implements ICreatedOrderDto {
   @IsOptional()
   @IsString()
   readonly sn: string;
