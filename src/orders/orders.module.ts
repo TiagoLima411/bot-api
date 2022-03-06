@@ -4,13 +4,15 @@ import { OrdersService } from './orders.service';
 import { ordersProviders } from './orders.provider';
 import { DatabaseModule } from '../database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { HttpClientModule } from '../http-client/http-client.module';
 
 @Module({
   imports: [
-    DatabaseModule,
     ConfigModule.forRoot({
       envFilePath: ['.env.local', '.env'],
     }),
+    DatabaseModule,
+    HttpClientModule,
   ],
   controllers: [OrdersController],
   providers: [OrdersService, ...ordersProviders],

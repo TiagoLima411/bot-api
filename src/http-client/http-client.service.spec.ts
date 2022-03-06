@@ -18,7 +18,7 @@ describe('HttpClientService', () => {
         throw new BadRequestException('Bad Request');
       }
     }),
-    post: jest.fn().mockImplementation((url, body, headers) => {
+    post: jest.fn().mockImplementation(({}) => {
       return { data: 'Some data' };
     }),
   };
@@ -62,18 +62,8 @@ describe('HttpClientService', () => {
   });
 
   describe('.post', () => {
-    const url = 'http://mockroute/api/any';
-    const headers = {
-      headers: {
-        'X-CUSTOM-HEADER': 'x_custom_header',
-      },
-    };
-    const body = {
-      key: 'giropops',
-    };
-
     it('returns expected body', async () => {
-      const result = await service.post(url, body, headers);
+      const result = await service.post({ options: '' });
       expect(result).toEqual({ data: 'Some data' });
     });
   });

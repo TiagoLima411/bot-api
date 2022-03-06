@@ -3,10 +3,9 @@ import {
   Controller,
   Get,
   Post,
-  UseInterceptors,
   ValidationPipe,
+  Headers,
 } from '@nestjs/common';
-import { OrderInterceptor } from '../interceptors/order.interceptor';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './dto/order.dto';
 import { Orders } from './dto/orders.dto';
@@ -17,8 +16,8 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  @UseInterceptors(OrderInterceptor)
   async create(
+    @Headers() headers: any,
     @Body(new ValidationPipe()) createOrderDto: CreateOrderDto,
   ): Promise<any> {
     return await this.ordersService.create(createOrderDto);
