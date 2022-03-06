@@ -7,7 +7,7 @@ import {
   StateEnum,
 } from '../interfaces/order.interface';
 
-export class CreateOrderDto implements ICreateOrderDto {
+export class CreateOrderDto {
   @IsEnum(SideEnum)
   readonly side: typeof SideEnum;
 
@@ -17,6 +17,7 @@ export class CreateOrderDto implements ICreateOrderDto {
   @IsString()
   readonly market_symbol: string;
 
+  @IsOptional()
   @IsString()
   readonly client_order_id: string;
 
@@ -26,6 +27,10 @@ export class CreateOrderDto implements ICreateOrderDto {
 
   @IsString()
   readonly quantity: string;
+
+  @IsOptional()
+  @IsString()
+  readonly price: string;
 }
 
 export class CreatedOrderDto implements ICreatedOrderDto {

@@ -7,6 +7,7 @@ export const createOrderDtoMock = {
   client_order_id: '123456',
   quantity: '100.0',
   remark: 'teste',
+  price: '123000',
 };
 
 export const responseCreateOrderMock = {
