@@ -42,6 +42,14 @@ export class HttpClientService {
     }
   }
 
+  async getTickerHistory(queryString) {
+    const basePath = 'https://api.foxbit.com.br:8443/AP/GetTickerHistory';
+    const fullPath = `${basePath}${queryString}`;
+    const result = await this.client.get(fullPath).toPromise();
+
+    return result.data;
+  }
+
   private async buildHeaders(options) {
     const timestamp = new Date().getTime();
     const signature = await this.buildSignature(options, timestamp);
