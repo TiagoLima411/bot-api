@@ -4,6 +4,7 @@ import { OrdersService } from './orders.service';
 import {
   createOrderDtoMock,
   responseCreateOrderMock,
+  listOrdersMock,
 } from './mocks/orders.mock';
 
 describe('OrdersService', () => {
@@ -12,7 +13,7 @@ describe('OrdersService', () => {
 
   const ordersServiceMock = {
     create: jest.fn().mockReturnValue(responseCreateOrderMock),
-    findAll: jest.fn().mockReturnValue({ data: [responseCreateOrderMock] }),
+    findAll: jest.fn().mockReturnValue(listOrdersMock),
   };
 
   beforeEach(async () => {
@@ -40,22 +41,7 @@ describe('OrdersService', () => {
       result = await service.create(createOrderDtoMock);
 
       expect(result).toEqual({
-        sn: 'PPFVVJN5GHHGXJ',
-        client_order_id: '123456',
-        market_symbol: 'tbcbrl',
-        side: result.side,
-        type: result.type,
-        state: result.state,
-        price: '5.2',
-        price_avg: '0.0',
-        quantity: '100.0',
-        quantity_executed: '100.0',
-        instant_amount: null,
-        instant_amount_executed: null,
-        created_at: '2022-02-08T18:06:10.026Z',
-        trades_count: 0,
-        _id: '621b6739fe284e9bd3e10220',
-        __v: 0,
+        message: 'PPFVVJN5GHHGXJ order is being processed.',
       });
     });
   });
@@ -64,28 +50,44 @@ describe('OrdersService', () => {
     it(`retunrs expected body`, async () => {
       result = await service.findAll();
 
-      expect(result).toEqual({
-        data: [
-          {
-            sn: 'PPFVVJN5GHHGXJ',
-            client_order_id: '123456',
-            market_symbol: 'tbcbrl',
-            side: 'SELL',
-            type: 'MARKET',
-            state: 'CANCELED',
-            price: '5.2',
-            price_avg: '0.0',
-            quantity: '100.0',
-            quantity_executed: '100.0',
-            instant_amount: null,
-            instant_amount_executed: null,
-            created_at: '2022-02-08T18:06:10.026Z',
-            trades_count: 0,
-            _id: '621b6739fe284e9bd3e10220',
-            __v: 0,
-          },
-        ],
-      });
+      expect(result.data).toEqual([
+        {
+          _id: '622c98011d5280d7f25f4a41',
+          sn: 'O47QWBIVDEZQX2',
+          client_order_id: '1234567906',
+          market_symbol: 'usdtbrl',
+          side: 'BUY',
+          type: 'MARKET',
+          state: 'ACTIVE',
+          price: null,
+          price_avg: '0.0',
+          quantity: '2.0',
+          quantity_executed: '0.0',
+          instant_amount: null,
+          instant_amount_executed: null,
+          created_at: '2022-03-12T12:54:25.177Z',
+          trades_count: 0,
+          __v: 0,
+        },
+        {
+          _id: '622c9a01852fa978ce76dc45',
+          sn: 'O4XTZXPU2YIPLY',
+          client_order_id: '1234567907',
+          market_symbol: 'usdtbrl',
+          side: 'BUY',
+          type: 'MARKET',
+          state: 'ACTIVE',
+          price: null,
+          price_avg: '0.0',
+          quantity: '2.0',
+          quantity_executed: '0.0',
+          instant_amount: null,
+          instant_amount_executed: null,
+          created_at: '2022-03-12T13:02:56.767Z',
+          trades_count: 0,
+          __v: 0,
+        },
+      ]);
     });
   });
 });

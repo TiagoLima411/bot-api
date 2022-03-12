@@ -7,7 +7,8 @@ Please check if your PR fulfills the following requirements:
 - [ ] Docs have been reviewed and added / updated if needed (for bug fixes / features)
 - [ ] Build (`npm run build`) was run locally and any changes were pushed
 - [ ] Lint (`npm run lint`) has passed locally and any fixes were made for failures
-
+- [ ] The PR must be assigned to some contributor..
+- [ ] Labels must appear in the PR.
 
 ## Pull request type
 

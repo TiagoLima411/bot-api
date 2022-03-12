@@ -9,12 +9,18 @@ export class HttpClientService {
   config = new ConfigService();
   constructor(private readonly client: HttpService) {}
 
-  async fetch(url: string) {
+  async fetch(op: any) {
+    const basePath = this.config.get<string>('BASE_PATH');
+    const path = `${op.url}${op.query_param}${op.query_string}`;
+    const fullPath = `${basePath}${path}`;
+
+    const headers = await this.buildHeaders(op);
+
     try {
-      const result = await this.client.get(url).toPromise();
+      const result = await this.client.get(fullPath, headers).toPromise();
       return result.data;
     } catch (err) {
-      throw err;
+      throw new BadRequestException(err.response.data);
     }
   }
 
@@ -52,7 +58,7 @@ export class HttpClientService {
 
   private async buildSignature(op, timestamp) {
     const secret = this.config.get<string>('API_SECRET');
-    const body = JSON.stringify(op.body);
+    const body = op.body !== '' ? JSON.stringify(op.body) : '';
     const prehash = `${timestamp}${op.method}${op.url}${op.query_param}${op.query_string}${body}`;
 
     const result = await crypto.HmacSHA256(prehash, secret).toString();
