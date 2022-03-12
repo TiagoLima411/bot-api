@@ -5,7 +5,6 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { Orders } from './dto/orders.dto';
 import { HttpClientService } from '../http-client/http-client.service';
 import { ConfigService } from '@nestjs/config';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class OrdersService {
@@ -28,8 +27,25 @@ export class OrdersService {
       body: createOrderDto,
     });
 
-    const createdCat = new this.orderModel(createOrderDto);
-    return createdCat.save();
+    setTimeout(async () => {
+      const order = await this.httpClientService.fetch({
+        method: 'GET',
+        url: '/rest/v3/orders',
+        query_param: `/${result.data.sn}`,
+        query_string: '',
+        body: '',
+      });
+
+      const createdOrder = new this.orderModel(order);
+      try {
+        await createdOrder.save();
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    }, 1000);
+
+    return { message: `${result.data.sn} order is being processed.` };
   }
 
   async findAll(): Promise<Orders> {
