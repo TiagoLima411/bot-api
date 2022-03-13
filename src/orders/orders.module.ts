@@ -16,5 +16,6 @@ import { HttpClientModule } from '../http-client/http-client.module';
   ],
   controllers: [OrdersController],
   providers: [OrdersService, ...ordersProviders],
+  exports: [OrdersService],
 })
 export class OrdersModule {}

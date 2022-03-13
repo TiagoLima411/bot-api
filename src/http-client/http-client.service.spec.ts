@@ -29,6 +29,14 @@ describe('HttpClientService', () => {
     post: jest.fn().mockImplementation(({}) => {
       return { sn: 'O3SBHQXZJGPEE2' };
     }),
+    getTickerHistory: jest.fn().mockImplementation((queryString) => {
+      return [
+        [
+          1647043200000, 201900, 193000.12, 198999.995, 197773.55, 7.9379,
+          197776.56, 198749.6, 1, 1646956800000,
+        ],
+      ];
+    }),
   };
 
   beforeEach(async () => {
@@ -97,6 +105,30 @@ describe('HttpClientService', () => {
         created_at: '2022-03-08T03:26:36.856Z',
         trades_count: 1,
       });
+    });
+  });
+
+  describe('.getTickerHistory', () => {
+    let result;
+    it('restuns expected data', async () => {
+      result = await service.getTickerHistory(
+        '?InstrumentId=1&Interval=86400&FromDate=2022-03-12T00:00:00&ToDate=2022-03-12T00:00:00',
+      );
+
+      expect(result).toEqual([
+        [
+          1647043200000, // UTC Date/Time
+          201900, // High
+          193000.12, // Low
+          198999.995, // Open
+          197773.55, // Close
+          7.9379, // Volume
+          197776.56, // Bid price
+          198749.6, // Ask price
+          1, // InstrumentId
+          1646956800000, // UTC Date/Time
+        ],
+      ]);
     });
   });
 });
