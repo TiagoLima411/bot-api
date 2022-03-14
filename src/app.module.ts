@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { OrdersModule } from './orders/orders.module';
+import { MoveAverageModule } from './move-average/move-average.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { OrdersModule } from './orders/orders.module';
     }),
     HealthModule,
     OrdersModule,
+    MoveAverageModule,
   ],
   controllers: [],
   providers: [],
