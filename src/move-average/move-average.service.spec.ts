@@ -7,6 +7,19 @@ const httpClientServiceMock = {
   getTickerHistory: jest.fn().mockReturnValue(tickerHistoryMock),
 };
 
+const moveAverageServiceMock = {
+  create: jest.fn().mockReturnValue({
+    date: new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
+    avg_price: 200409.2813125,
+  }),
+  moveAverage: jest.fn().mockImplementation((queryString) => {
+    return {
+      date: new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
+      avg_price: 200409.2813125,
+    };
+  }),
+};
+
 describe('MoveAverageService', () => {
   let service: MoveAverageService;
 
@@ -15,6 +28,8 @@ describe('MoveAverageService', () => {
       imports: [],
       providers: [MoveAverageService, HttpClientService],
     })
+      .overrideProvider(MoveAverageService)
+      .useValue(moveAverageServiceMock)
       .overrideProvider(HttpClientService)
       .useValue(httpClientServiceMock)
       .compile();
@@ -44,6 +59,26 @@ describe('MoveAverageService', () => {
         date: new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
         avg_price: 200409.2813125,
       });
+    });
+  });
+
+  describe('When call create', () => {
+    let result;
+
+    const endTime = `${new Date().toISOString().slice(0, 11)}00:00:00`;
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - 7);
+    const startTime = `${fromDate.toISOString().slice(0, 11)}00:00:00`;
+
+    const queryString = `?InstrumentId=1&Interval=86400&FromDate=${startTime}&ToDate=${endTime}`;
+
+    beforeEach(async () => {
+      result = await service.create(queryString);
+      console.log(result);
+    });
+
+    it('returns expected payload', () => {
+      expect(result).toEqual({ date: '10/04/2022', avg_price: 200409.2813125 });
     });
   });
 });
