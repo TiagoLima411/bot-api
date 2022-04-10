@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
+import { Cron, CronExpression, Timeout } from '@nestjs/schedule';
 import { MoveAverageService } from '../move-average/move-average.service';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class TasksService {
 
   constructor(private readonly averageService: MoveAverageService) {}
 
-  @Cron('0 59 23 * * 0-6')
+  @Cron(CronExpression.EVERY_DAY_AT_9PM)
   async handleCron() {
     this.logger.debug(`Time the job was called: ${new Date().toISOString()}`);
 
@@ -17,7 +17,7 @@ export class TasksService {
     fromDate.setDate(fromDate.getDate() - 7);
     const startTime = `${fromDate.toISOString().slice(0, 11)}00:00:00`;
 
-    const result = await this.averageService.moveAverage(
+    const result = await this.averageService.create(
       `?InstrumentId=1&Interval=86400&FromDate=${startTime}&ToDate=${endTime}`,
     );
 
